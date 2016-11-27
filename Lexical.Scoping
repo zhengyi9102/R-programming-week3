@@ -1,0 +1,32 @@
+# This is R programming for assignment in week 3
+
+
+
+makeCacheMatrix <- function(x = matrix()) {
+  invers <- NULL
+  set <- function(y) {
+    x <<- y
+    invers <<- NULL
+  }
+  get <- function() x
+  setInverse <- function(inverse) invers <<- inverse
+  getInverse <- function() invers
+  list(set = set,
+       get = get,
+       setInverse = setInverse,
+       getInverse = getInverse)
+}
+
+
+
+cacheSolution <- function(x, ...) {
+  invers <- x$getInverse()
+  if (!is.null(invers)) {
+    message("getting cached data")
+    return(invers)
+  }
+  matrix <- x$get()
+  invers <- solve(matrix, ...)
+  x$setInverse(invers)
+  invers
+}
